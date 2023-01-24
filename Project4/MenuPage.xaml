@@ -9,7 +9,7 @@
     <Grid>
 
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\bushr\Documents\school\Leerjaar 2\Project 4\Project4\Project4\img\background.jpg"  Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="img\background.jpg"  Stretch="UniformToFill"/>
         </Grid.Background>
 
         <Grid Margin="20" Background="White" Opacity="0.90" Grid.Column="1" Grid.Row="1">

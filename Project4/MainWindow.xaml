@@ -9,7 +9,7 @@
     <Grid>
 
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\bushr\Documents\school\Leerjaar 2\Project 4\Project4\Project4\img\background.jpg"  Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="img\background.jpg"  Stretch="UniformToFill"/>
         </Grid.Background>
         
         <Grid Margin="20" Background="White" Opacity="0.90" Grid.Column="1" Grid.Row="1">
@@ -29,7 +29,7 @@
             <TextBlock Background="#7B350A" Foreground="White" Width="300" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,240"></TextBlock>
             <TextBlock FontSize="20" FontFamily="Calibri" Background="#7B350A" Foreground="White" Width="50" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,240">Home</TextBlock>
             <TextBlock Background="#7B350A" Margin="70,0,0,0" HorizontalAlignment="Left" Foreground="White" Width="110" Height="30" Grid.ColumnSpan="2" FontSize="20" FontFamily="Calibri">Stonks-pizza</TextBlock>
-            <Image Source="C:\Users\bushr\Documents\school\Leerjaar 2\Project 4\Project4\Project4\img\pizza.png" Width="300" Height="230" Grid.ColumnSpan="2" Grid.Row="2"></Image>
+            <Image Source="img\pizza.png" Width="300" Height="230" Grid.ColumnSpan="2" Grid.Row="2"></Image>
 
             <Button x:Name="Menu" Click="Menu_Click" Background="#7B350A" Margin="180,0,0,0" HorizontalAlignment="Left" Foreground="White" Width="110" Height="30" Grid.ColumnSpan="2" FontSize="20" FontFamily="Calibri" Grid.Row="3">Pizza Menu</Button>
             <Button Name="Bestellen" Click="Bestellen_Click" Background="#7B350A" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" Width="130" Height="30" Grid.ColumnSpan="2" FontSize="20" FontFamily="Calibri" Grid.Row="3">Pizza Bestellen</Button>
