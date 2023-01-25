@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Text;
 
@@ -14,10 +15,10 @@ namespace Project4.Models
 
         private string connString = ConfigurationManager.ConnectionStrings["PizzaConn"].ConnectionString;
 
-        public string GetMenu(ICollection<Menus> menus)
+        public string GetPizza(ICollection<Pizzas> pizzas)
         {
 
-            if (menus == null)
+            if (pizzas == null)
             {
                 throw new ArgumentException("Ongeldig argument bij gebruik van GetMeals");
             }
@@ -33,7 +34,7 @@ namespace Project4.Models
                     MySqlDataReader reader = sql.ExecuteReader();
                     while (reader.Read())
                     {
-                        Menus menu = new Menus()
+                        Pizzas pizza = new ()
                         {
                             PizzaID = (int)reader["pizzaID"],
                             Name = (string)reader["PizzaName"],
@@ -42,13 +43,13 @@ namespace Project4.Models
                      : (string)reader["description"],
                             Price = (decimal)reader["price"],
                         };
-                        menus.Add(menu);
+                        pizzas.Add(pizza);
                     }
                     methodResult = "Ok";
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine(nameof(GetMenu));
+                    Console.Error.WriteLine(nameof(GetPizza));
                     Console.Error.WriteLine(e.Message);
                     methodResult = e.Message;
                 }

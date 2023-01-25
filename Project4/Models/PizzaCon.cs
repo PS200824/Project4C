@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Project4.Models
 {
-    internal class Pizza
+    public class PizzaCon
     {
         private string connString =
             ConfigurationManager.ConnectionStrings["PizzaConn"].ConnectionString;
