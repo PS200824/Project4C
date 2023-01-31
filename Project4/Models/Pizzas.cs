@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Project4.Models
 {
-    public class Menus
+    public class Pizzas
     {
-        private int pizzaid;
+        private int pizzaID;
         public int PizzaID
         {
-            get { return pizzaid; }
-            set { pizzaid = value; }
+            get { return pizzaID; }
+            set { pizzaID = value; }
         }
         private string name = null!;
         public string Name
@@ -30,5 +30,15 @@ namespace Project4.Models
             get { return price; }
             set { price = value; }
         }
+
+        private int ingredientId { get; set; }
+
+        public int IngredientId
+        {
+            get { return ingredientId; }
+            set { ingredientId = value; }
+        }
+
+        public Ingredient Ingredient { get; set; }
     }
 }

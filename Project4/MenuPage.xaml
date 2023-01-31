@@ -26,11 +26,11 @@
 
             <TextBlock Margin="10" Background="#7B350A" Foreground="White" Width="750" Height="30" Grid.ColumnSpan="2"></TextBlock>
             <Image Source="C:\Users\bushr\Documents\school\Leerjaar 2\Project 4\Project4\Project4\img\logo.png" Height="30" Margin="0,0,320,0" Width="30"></Image>
-            <TextBlock Background="#7B350A" Margin="70,0,0,0" HorizontalAlignment="Left" Foreground="White" Width="110" Height="30" Grid.ColumnSpan="2" FontSize="20" FontFamily="Calibri">Stonks-pizza</TextBlock>
+            <TextBlock Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="18" FontStretch="UltraExpanded" FontWeight="UltraBold" Margin="70,0,0,0" HorizontalAlignment="Left" Width="110" Height="30" Grid.ColumnSpan="2">Stonks-pizza</TextBlock>
             <TextBlock Background="#7B350A" Foreground="White" Width="300" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,230"></TextBlock>
-            <TextBlock FontSize="20" FontFamily="Calibri" Background="#7B350A" Foreground="White" Width="80" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,230">Pizza Lijst</TextBlock>
+            <TextBlock Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="18" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="80" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,230">Pizza Lijst</TextBlock>
 
-            <ListView Margin="230,5,0,60" ItemsSource="{Binding Menus}" SelectedItem="{Binding SelectedMenu}" Grid.Row="2" Grid.ColumnSpan="1">
+            <ListView Margin="0,0,0,40" ItemsSource="{Binding Pizzas}" SelectedItem="{Binding SelectedPizza}" Grid.Row="2" Grid.ColumnSpan="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -45,18 +45,16 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="{Binding Name}" Foreground="#7B350A"/>
-
                                 </Grid>
                             </Grid>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Background="DeepPink" Margin="10,5,0,200" HorizontalAlignment="Left" Height="20" Foreground="Yellow" Grid.Row="2" Grid.Column="1" >ADD</Button>
 
-            <Button x:Name="Home" Click="Home_Click" Background="#7B350A" Margin="180,0,0,0" HorizontalAlignment="Left" Foreground="White" Width="110" Height="30" Grid.ColumnSpan="2" FontSize="20" FontFamily="Calibri" Grid.Row="3">Home</Button>
-            <Button Name="Bestellen" Click="Bestellen_Click" Background="#7B350A" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" Width="130" Height="30" Grid.ColumnSpan="2" FontSize="20" FontFamily="Calibri" Grid.Row="3">Pizza Bestellen</Button>
-            <Button x:Name="Annuleren" Click="Annuleren_Click" Background="#7B350A" Margin="300,0,0,0" VerticalAlignment="Center" Foreground="White" Width="130" Height="30" Grid.ColumnSpan="2" FontSize="20" FontFamily="Calibri" Grid.Row="3">Annuleren</Button>
+            <Button x:Name="Home" Click="Home_Click" Margin="180,0,0,0" HorizontalAlignment="Left" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="18" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="110" Height="30" Grid.ColumnSpan="2" Grid.Row="3">Home</Button>
+            <Button Name="Bestellen" Click="Bestellen_Click" Margin="0,0,0,0" VerticalAlignment="Center" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="18" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="130" Height="30" Grid.ColumnSpan="2" Grid.Row="3">Pizza Bestellen</Button>
+            <Button x:Name="Annuleren" Click="Annuleren_Click" Margin="300,0,0,0" VerticalAlignment="Center" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="18" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="130" Height="30" Grid.ColumnSpan="2" Grid.Row="3">Annuleren</Button>
         </Grid>
     </Grid>
 </Window>

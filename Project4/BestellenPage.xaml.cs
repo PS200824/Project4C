@@ -33,22 +33,22 @@ namespace Project4
         private readonly string serviceDeskBericht = "\n\nNeem contact op met de service desk";
         #endregion
         #region Properties
-        private ObservableCollection<Menus> menus = new ObservableCollection<Menus>();
-        public ObservableCollection<Menus> Menus
+        private ObservableCollection<Pizzas> pizzas = new ObservableCollection<Pizzas>();
+        public ObservableCollection<Pizzas> Pizzas
         {
-            get { return menus; }
-            set { menus = value; OnPropertyChanged(); }
+            get { return pizzas; }
+            set { pizzas = value; OnPropertyChanged(); }
         }
-        private Menus? selectedMenu;
-        public Menus? SelectedMenu
+        private Pizzas? selectedPizza;
+        public Pizzas? SelectedPizza
         {
-            get { return selectedMenu; }
-            set { selectedMenu = value; OnPropertyChanged(); }
+            get { return selectedPizza; }
+            set { selectedPizza = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<Menus> bestellingen = new ();
+        private ObservableCollection<Pizzas> bestellingen = new ();
 
-        public ObservableCollection<Menus> Bestellingen
+        public ObservableCollection<Pizzas> Bestellingen
         {
             get { return bestellingen;  }
             set { bestellingen = value; }
@@ -64,7 +64,7 @@ namespace Project4
 
         private void PopulateMenus()
         {
-            string dbResult = db.GetMenu(Menus);
+            string dbResult = db.GetPizza(Pizzas);
             if (dbResult != PizzaDB.OK)
             {
                 MessageBox.Show(dbResult + serviceDeskBericht);
@@ -90,10 +90,10 @@ namespace Project4
 
         private void AddPizza_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedMenu != null)
+            if (SelectedPizza != null)
             {
-                Bestellingen.Add(SelectedMenu);
-                Menus.Remove(SelectedMenu);
+                Bestellingen.Add(SelectedPizza);
+                Pizzas.Remove(SelectedPizza);
 
             }
         }
@@ -101,9 +101,9 @@ namespace Project4
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            Menus teVerwijderenMenu  = btn.DataContext as Menus;
+            Pizzas teVerwijderenMenu  = btn.DataContext as Pizzas;
             Bestellingen.Remove(teVerwijderenMenu);
-            Menus.Add(teVerwijderenMenu);
+            Pizzas.Add(teVerwijderenMenu);
 
 
         }
@@ -123,12 +123,8 @@ namespace Project4
 
         private void btnBestellenStatus_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void AntaalPizza_Click(object sender, RoutedEventArgs e)
-        {
-
+            new BestellenStatusPage().Show();
+            this.Close();
         }
     }
 }
