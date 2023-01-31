@@ -8,7 +8,25 @@ namespace Project4.Models
 {
     public class Ingredient
     {
-        public int IngresientId { get; set; }
-        public string Name { get; set; }
+        private int ingredientId { get; set; }
+
+        public int IngredientId
+        {
+            get { return ingredientId; }
+            set { ingredientId = value; }
+        }
+        private string name { get; set; }
+        public string Name 
+        { 
+            get { return name; }
+            set { name = value; }
+        }
+        private int pizzaID;
+        public int PizzaID
+        {
+            get { return pizzaID; }
+            set { pizzaID = value; }
+        }
+        public Pizzas Pizzas { get; set; }
     }
 }

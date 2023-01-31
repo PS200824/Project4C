@@ -123,7 +123,8 @@ namespace Project4
 
         private void btnBestellenStatus_Click(object sender, RoutedEventArgs e)
         {
-
+            new BestellenStatusPage().Show();
+            this.Close();
         }
     }
 }

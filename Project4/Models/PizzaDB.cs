@@ -56,5 +56,45 @@ namespace Project4.Models
             }
             return methodResult;
         }
+
+        public string GetIngredient(int ingredientId, out Ingredient? ingredient)
+        {
+            ingredient = null;
+            string methodResult = UNKNOWN;
+            using (MySqlConnection conn = new(connString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand sql = conn.CreateCommand();
+                    sql.CommandText = @"
+                         SELECT i.ingredientId, i.name, i.price, i.pizzaID, u.name as PizzaName
+                         FROM ingredients i
+                         INNER JOIN pizzas u ON u.pizzaID = i.pizzaID
+                         WHERE i.ingredientId = @ingredientId;
+                         ";
+                    sql.Parameters.AddWithValue("@ingredientId", ingredientId);
+                    MySqlDataReader reader = sql.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ingredient = new()
+                        {
+                            IngredientId = (int)reader["ingredientId"],
+                            Name = (string)reader["name"],
+                            PizzaID = (int)reader["pizzaID"],
+                        };
+                    }
+                    methodResult = ingredient == null ? NOTFOUND : OK;
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(nameof(GetIngredient));
+                    Console.Error.WriteLine(e.Message);
+                    methodResult = e.Message;
+                }
+            }
+            return methodResult;
+        }
+
     }
 }
