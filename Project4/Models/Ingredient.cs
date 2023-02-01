@@ -21,12 +21,6 @@ namespace Project4.Models
             get { return name; }
             set { name = value; }
         }
-        private int pizzaID;
-        public int PizzaID
-        {
-            get { return pizzaID; }
-            set { pizzaID = value; }
-        }
-        public Pizzas Pizzas { get; set; }
+
     }
 }

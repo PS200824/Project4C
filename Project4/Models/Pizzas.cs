@@ -31,14 +31,5 @@ namespace Project4.Models
             set { price = value; }
         }
 
-        private int ingredientId { get; set; }
-
-        public int IngredientId
-        {
-            get { return ingredientId; }
-            set { ingredientId = value; }
-        }
-
-        public Ingredient Ingredient { get; set; }
     }
 }

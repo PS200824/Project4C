@@ -57,9 +57,12 @@ namespace Project4.Models
             return methodResult;
         }
 
-        public string GetIngredient(int ingredientId, out Ingredient? ingredient)
+        public string GetIngredient(ICollection<Ingredient> ingredienten)
         {
-            ingredient = null;
+            if (ingredienten == null)
+            {
+                throw new ArgumentException("Ongeldig argument bij gebruik van GetMeals");
+            }
             string methodResult = UNKNOWN;
             using (MySqlConnection conn = new(connString))
             {
@@ -68,23 +71,19 @@ namespace Project4.Models
                     conn.Open();
                     MySqlCommand sql = conn.CreateCommand();
                     sql.CommandText = @"
-                         SELECT i.ingredientId, i.name, i.price, i.pizzaID, u.name as PizzaName
-                         FROM ingredients i
-                         INNER JOIN pizzas u ON u.pizzaID = i.pizzaID
-                         WHERE i.ingredientId = @ingredientId;
+                         SELECT i.ingredientId, i.name FROM ingredienten i
                          ";
-                    sql.Parameters.AddWithValue("@ingredientId", ingredientId);
                     MySqlDataReader reader = sql.ExecuteReader();
                     while (reader.Read())
                     {
-                        ingredient = new()
+                       Ingredient ingredients = new ()
                         {
                             IngredientId = (int)reader["ingredientId"],
                             Name = (string)reader["name"],
-                            PizzaID = (int)reader["pizzaID"],
                         };
+                        ingredienten.Add(ingredients);
                     }
-                    methodResult = ingredient == null ? NOTFOUND : OK;
+                    methodResult = "Ok";
                 }
                 catch (Exception e)
                 {
@@ -96,5 +95,10 @@ namespace Project4.Models
             return methodResult;
         }
 
+        /* SELECT i.ingredientId, i.name, i.price, i.pizzaID, u.name as PizzaName
+           FROM pizzaingredienten i
+           INNER JOIN pizzas u ON u.pizzaID = i.pizzaID
+           WHERE i.ingredientId = @ingredientId
+        */
     }
 }
