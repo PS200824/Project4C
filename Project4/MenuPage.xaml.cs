@@ -46,6 +46,19 @@ namespace Project4
             get { return selectedPizza; }
             set { selectedPizza = value; OnPropertyChanged(); }
         }
+
+        private ObservableCollection<Ingredient> ingredients = new ObservableCollection<Ingredient>();
+        public ObservableCollection<Ingredient> Ingredients
+        {
+            get { return ingredients; }
+            set { ingredients = value; OnPropertyChanged(); }
+        }
+        private Pizzas? selectedIngredient;
+        public Pizzas? SelectedIngredient
+        {
+            get { return selectedIngredient; }
+            set { selectedIngredient = value; OnPropertyChanged(); }
+        }
         #endregion
 
         public MenuPage()
