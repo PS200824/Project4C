@@ -62,7 +62,7 @@
 
                 <Button x:Name="AddPizza" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Click="AddPizza_Click" Margin="0,60,40,0" Grid.Column="0" Grid.Row="2" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right">Add Pizza</Button>
 
-                <TextBox Background="DeepPink" Width="750" Margin="20,20,55,80" Height="50">Why I can't see u :((</TextBox>
+                <ComboBox Background="DeepPink" Width="750" Margin="20,20,55,80" Height="50">Why I can't see u :((</ComboBox>
 
                     <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestellingen}">
                     <ListBox.ItemTemplate>
