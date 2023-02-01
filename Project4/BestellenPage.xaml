@@ -56,13 +56,15 @@
                 </ListView>
                 
                 <StackPanel Orientation="Horizontal" Margin="0,10,40,0" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right">
-                    <TextBlock x:Name="btAntaalPizza" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" LineHeight="Auto" Padding="5,10,5,10" TextAlignment="Center" TextWrapping="Wrap" Typography.NumeralStyle="OldStyle" Typography.SlashedZero="True">Antaal</TextBlock>
+                    <TextBlock x:Name="btAntaalPizza" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" LineHeight="Auto" Padding="5,10,5,10" TextAlignment="Center" TextWrapping="Wrap" Typography.NumeralStyle="OldStyle" Typography.SlashedZero="True">Aantal</TextBlock>
                     <TextBox x:Name="tbAntaal" Margin="20,0,0,0" Width="30" Height="30"></TextBox>
                 </StackPanel>
 
                 <Button x:Name="AddPizza" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Click="AddPizza_Click" Margin="0,60,40,0" Grid.Column="0" Grid.Row="2" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right">Add Pizza</Button>
 
-                <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestellingen}">
+                <TextBox Background="DeepPink" Width="750" Margin="20,20,55,80" Height="50">Why I can't see u :((</TextBox>
+
+                    <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestellingen}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
