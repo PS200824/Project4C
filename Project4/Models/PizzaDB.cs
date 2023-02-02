@@ -94,7 +94,6 @@ namespace Project4.Models
             }
             return methodResult;
         }
-
         public string GetPizzaIngredient(int ingredientId, out Ingredient? ingredient)
         {
             ingredient = null;
@@ -137,6 +136,7 @@ namespace Project4.Models
             }
             return methodResult;
         }
+
         /* SELECT i.ingredientId, i.name, i.price, i.pizzaID, u.name as PizzaName
            FROM pizzaingredienten i
            INNER JOIN pizzas u ON u.pizzaID = i.pizzaID
