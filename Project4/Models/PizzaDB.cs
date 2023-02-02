@@ -95,6 +95,48 @@ namespace Project4.Models
             return methodResult;
         }
 
+        public string GetPizzaIngredient(int ingredientId, out Ingredient? ingredient)
+        {
+            ingredient = null;
+            string methodResult = UNKNOWN;
+            using (MySqlConnection conn = new(connString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand sql = conn.CreateCommand();
+                    sql.CommandText = @"
+                         SELECT i.ingredientId, i.name, i.price, i.unitId, u.name as unitName
+                         FROM ingredients i
+                         INNER JOIN units u ON u.unitId = i.unitId
+                         WHERE i.ingredientId = @ingredientId;
+                         ";
+                    sql.Parameters.AddWithValue("@ingredientId", ingredientId);
+                    MySqlDataReader reader = sql.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ingredient = new()
+                        {
+                            IngredientId = (int)reader["ingredientId"],
+                            Name = (string)reader["name"],
+                            Ingredient = new Ingredient()
+                            {
+                                IngredientId = (int)reader["ingredientId"],
+                                Name = (string)reader["name"],
+                            }
+                        };
+                    }
+                    methodResult = ingredient == null ? NOTFOUND : OK;
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(nameof(GetIngredient));
+                    Console.Error.WriteLine(e.Message);
+                    methodResult = e.Message;
+                }
+            }
+            return methodResult;
+        }
         /* SELECT i.ingredientId, i.name, i.price, i.pizzaID, u.name as PizzaName
            FROM pizzaingredienten i
            INNER JOIN pizzas u ON u.pizzaID = i.pizzaID
