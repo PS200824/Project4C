@@ -33,11 +33,11 @@ namespace Project4
         private readonly string serviceDeskBericht = "\n\nNeem contact op met de service desk";
         #endregion
         #region Properties
-        private ObservableCollection<Pizzas> pizzas = new ObservableCollection<Pizzas>();
-        public ObservableCollection<Pizzas> Pizzas
+        private ObservableCollection<Bestelregel> bestelregels = new ObservableCollection<Bestelregel>();
+        public ObservableCollection<Bestelregel> Bestelregels
         {
-            get { return pizzas; }
-            set { pizzas = value; OnPropertyChanged(); }
+            get { return bestelregels; }
+            set { bestelregels = value; OnPropertyChanged(); }
         }
         private Pizzas? selectedPizza;
         public Pizzas? SelectedPizza
@@ -46,21 +46,53 @@ namespace Project4
             set { selectedPizza = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<Pizzas> bestellingen = new ();
+        private ObservableCollection<Pizzas> bestellingen = new();
 
         public ObservableCollection<Pizzas> Bestellingen
         {
-            get { return bestellingen;  }
+            get { return bestellingen; }
             set { bestellingen = value; }
         }
+
+
+        private ObservableCollection<PizzaGrootte> pizzaGroottes= new();
+
+        public ObservableCollection<PizzaGrootte> PizzaGroottes
+        {
+            get { return pizzaGroottes; }
+            set { pizzaGroottes = value; }
+        }
+
+        private PizzaGrootte? selectedPizzaGrootte; //iets voor cansel
+        public PizzaGrootte? SelectedPizzaGrootte
+        {
+            get { return selectedPizzaGrootte; }
+            set { selectedPizzaGrootte = value; OnPropertyChanged(); ShowUpdatedPrice(); }
+        }
+
+        private void ShowUpdatedPrice()
+        {
+            MessageBox.Show((SelectedPizza.Price * SelectedPizzaGrootte.Factor).ToString());
+        }
+
 
         #endregion
         public BestellenPage()
         {
             InitializeComponent();
             PopulateMenus();
+            PopulatePizzaGroottes();
             DataContext = this;
     }
+
+        private void PopulatePizzaGroottes()
+        {
+            string dbResult = db.GetPizzaGroottes(PizzaGroottes);
+            if (dbResult != PizzaDB.OK)
+            {
+                MessageBox.Show(dbResult + serviceDeskBericht);
+            }
+        }
 
         private void PopulateMenus()
         {
@@ -93,7 +125,6 @@ namespace Project4
             if (SelectedPizza != null)
             {
                 Bestellingen.Add(SelectedPizza);
-                Pizzas.Remove(SelectedPizza);
 
             }
         }
@@ -102,8 +133,10 @@ namespace Project4
         {
             Button btn = sender as Button;
             Pizzas teVerwijderenMenu  = btn.DataContext as Pizzas;
+            PizzaGrootte teVerwijderenMenu2 = btn.DataContext as PizzaGrootte;
             Bestellingen.Remove(teVerwijderenMenu);
             Pizzas.Add(teVerwijderenMenu);
+            PizzaGroottes.Add(teVerwijderenMenu2);
 
 
         }

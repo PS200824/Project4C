@@ -20,7 +20,7 @@ namespace Project4.Models
 
         public int Aantal { get; set; }
 
-        public decimal Regelprijs { get { return Aantal * Pizza.Price * PizzaGrootte.factor;  } }
+        public decimal Regelprijs { get { return Aantal * Pizza.Price * PizzaGrootte.Factor;  } }
 
     }
 }
