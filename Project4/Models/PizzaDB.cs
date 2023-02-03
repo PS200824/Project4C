@@ -103,7 +103,7 @@ namespace Project4.Models
         public string CreateBestellings(Bestelling bestellings)
         {
 
-            if (bestellings == null || bestellings.Besteldatum == null)
+            if (bestellings == null)
             {
                 throw new ArgumentException("Ongeldig argument bij gebruik van CreateIngredient");
             }
@@ -139,7 +139,7 @@ namespace Project4.Models
             return methodResult;
         }
 
-        public string GetBestelregels(ICollection<Bestelregel> bestelregels)
+        public string GetBestelregels(ICollection<Bestelregel> bestelregels, Bestelling bestelling)
         {
             if (bestelregels == null)
             {
@@ -153,11 +153,13 @@ namespace Project4.Models
                     conn.Open();
                     MySqlCommand sql = conn.CreateCommand();
                     sql.CommandText = @"
-                         SELECT  b.bestelregelId, b.bestellingId, b.pizzaGrootteId, b.Aantal, b.pizzaID FROM bestelregel b
-                         INNER JOIN pizza p ON p.pizzaID = i.pizzaID
-                         WHERE b.bestelregelId = @bestelregelId;
+                            SELECT  b.bestelregelId, b.bestellingId, b.pizzaGrootteId, b.Aantal, b.pizzaID, p.PizzaName, p.price, pg.description,  pg.factor
+                            FROM bestelregel b 
+                            INNER JOIN pizza p ON p.pizzaID = b.pizzaID 
+                            INNER JOIN pizzagrootte pg ON pg.pizzaGrootteId = b.pizzaGrootteId
+                            WHERE b.bestellingId = @bestellingId
                          ";
-                    sql.Parameters.AddWithValue("@bestelregelId", bestelregels);
+                    sql.Parameters.AddWithValue("@bestellingId", bestelling.BestellinglId);
                     MySqlDataReader reader = sql.ExecuteReader();
                     while (reader.Read())
                     {
@@ -165,9 +167,18 @@ namespace Project4.Models
                         {
                             BestelregelId = (int)reader["bestelregelId"],
                             BestellingId = (int)reader["bestellingId"],
-                            PizzaGrootteId = (int)reader["pizzaGrootteId"],
+                            PizzaGrootte = new()
+                            {
+                                Id = (int)reader["pizzaGrootteId"],
+                                Description = (string)reader["description"],
+                                Factor = (decimal)reader["factor"]
+                            },
                             Aantal = (int)reader["Aantal"],
-                            PizzaID = (int)reader["pizzaID"],
+                            Pizza = new(){
+                               PizzaID = (int)reader["pizzaID"],
+                               Name =  (string)reader["PizzaName"],
+                               Price = (decimal)reader["price"]
+                            },
                         };
                         bestelregels.Add(bestelregel);
                     }
@@ -218,86 +229,6 @@ namespace Project4.Models
                 catch (Exception e)
                 {
                     Console.Error.WriteLine(nameof(CreateBestelRegels));
-                    Console.Error.WriteLine(e.Message);
-                    methodResult = e.Message;
-                }
-            }
-            return methodResult;
-        }
-
-        public string GetIngredient(ICollection<Ingredient> ingredienten)
-        {
-            if (ingredienten == null)
-            {
-                throw new ArgumentException("Ongeldig argument bij gebruik van GetMeals");
-            }
-            string methodResult = UNKNOWN;
-            using (MySqlConnection conn = new(connString))
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlCommand sql = conn.CreateCommand();
-                    sql.CommandText = @"
-                         SELECT i.ingredientId, i.name FROM ingredienten i
-                         ";
-                    MySqlDataReader reader = sql.ExecuteReader();
-                    while (reader.Read())
-                    {
-                       Ingredient ingredients = new ()
-                        {
-                            IngredientId = (int)reader["ingredientId"],
-                            Name = (string)reader["name"],
-                        };
-                        ingredienten.Add(ingredients);
-                    }
-                    methodResult = "Ok";
-                }
-                catch (Exception e)
-                {
-                    Console.Error.WriteLine(nameof(GetIngredient));
-                    Console.Error.WriteLine(e.Message);
-                    methodResult = e.Message;
-                }
-            }
-            return methodResult;
-        }
-        public string GetPizzaIngredient(int ingredientId, out Ingredient? ingredient)
-        {
-            ingredient = null;
-            string methodResult = UNKNOWN;
-            using (MySqlConnection conn = new(connString))
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlCommand sql = conn.CreateCommand();
-                    sql.CommandText = @"
-                         SELECT i.ingredientId, i.name, i.price, i.unitId, u.name as unitName
-                         FROM ingredients i
-                         INNER JOIN units u ON u.unitId = i.unitId
-                         WHERE i.ingredientId = @ingredientId;
-                         ";
-                    sql.Parameters.AddWithValue("@ingredientId", ingredientId);
-                    MySqlDataReader reader = sql.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        ingredient = new()
-                        {
-                            IngredientId = (int)reader["ingredientId"],
-                            Name = (string)reader["name"],
-                            /*PizzaIngredienten = new()
-                            {
-                                IngredientId = (int)reader["ingredientId"],
-                                Name = (string)reader["name"],
-                            }*/
-                        };
-                    }
-                    methodResult = ingredient == null ? NOTFOUND : OK;
-                }
-                catch (Exception e)
-                {
-                    Console.Error.WriteLine(nameof(GetIngredient));
                     Console.Error.WriteLine(e.Message);
                     methodResult = e.Message;
                 }

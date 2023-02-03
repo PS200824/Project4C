@@ -78,26 +78,33 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                    <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestellingen}">
+                    <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestelregel}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid Grid.Column="1" Margin="10, 2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" Margin="0, 2, 0, 10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition/>
                                             <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Name}" Foreground="#7B350A"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Price, StringFormat='€ 0.00'}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0" />
-                                        <Button Background="#7B350A" Foreground="White" Grid.Column="3" Content="Delete" Click="BtnDelete_Click"/>
+                                        
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Pizza.Name}" Foreground="#7B350A"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Aantal}" Foreground="#7B350A"/>
+                                        <TextBlock Grid.Column="2" Grid.Row="2" Text="{Binding PizzaGrootte.Description}" Foreground="#7B350A"/>
+                                        <TextBlock Grid.Column="3" Grid.Row="3" Text="{Binding Regelprijs, StringFormat='€ 0.00'}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0" />
+                                        <Button Background="#7B350A" Foreground="White" Grid.Column="4" Content="Delete" Click="BtnDelete_Click"/>
                                     </Grid>
                                     <!--<TextBlock Grid.Row="1" Text="{Binding Description}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0" />-->
                                 </Grid>

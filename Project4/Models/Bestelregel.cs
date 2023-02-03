@@ -9,19 +9,17 @@ namespace Project4.Models
     public class Bestelregel
     {
         public int BestelregelId { get; set; }
-        public int PizzaID { get; set; }
         public Pizzas Pizza { get; set; }
 
         public int BestellingId { get; set; }
         /*        public Bestelling Bestelling { get; set; }
         */
 
-        public int PizzaGrootteId { get; set; }
         public PizzaGrootte PizzaGrootte { get; set; }
 
         public int Aantal { get; set; }
 
-        public decimal Regelprijs { get { return Aantal * Pizza.Price * PizzaGrootte.Factor;  } }
+        public decimal Regelprijs { get { return Aantal * (Pizza.Price + PizzaGrootte.Factor);  } }
 
     }
 }
