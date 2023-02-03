@@ -159,5 +159,36 @@ namespace Project4
             new BestellenStatusPage().Show();
             this.Close();
         }
+
+        double total = 0;
+
+
+
+        //TOTAAL PRIJS BEREKENEN
+
+        //private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+            //if (comboBox1.SelectedItem.ToString() == "Item 1")
+            //{
+            //    total += 10;
+            //}
+            //else if (comboBox1.SelectedItem.ToString() == "Item 2")
+            //{
+             //   total += 20;
+            //}
+            //else if (comboBox1.SelectedItem.ToString() == "Item 3")
+            //{
+              //  total += 30;
+            //}
+
+            //labelTotal.Text = "Total: $" + total.ToString();
+        //}
+
+
+
+
+
+
+
     }
 }
