@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,17 +34,19 @@ namespace Project4
         private readonly string serviceDeskBericht = "\n\nNeem contact op met de service desk";
         #endregion
         #region Properties
-        private ObservableCollection<Bestelregel> bestelregels = new ObservableCollection<Bestelregel>();
-        public ObservableCollection<Bestelregel> Bestelregels
+
+        //__________Pizza__________
+        private ObservableCollection<Pizzas> pizzas = new ();
+        public ObservableCollection<Pizzas> Pizzas
         {
-            get { return bestelregels; }
-            set { bestelregels = value; OnPropertyChanged(); }
+            get { return pizzas; }
+            set { pizzas = value; OnPropertyChanged(); }
         }
-        private Pizzas? selectedPizza;
-        public Pizzas? SelectedPizza
+        private Pizzas? selectedPizzas;
+        public Pizzas? SelectedbPizzas
         {
-            get { return selectedPizza; }
-            set { selectedPizza = value; OnPropertyChanged(); }
+            get { return selectedPizzas; }
+            set { selectedPizzas = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<Pizzas> bestellingen = new();
@@ -54,7 +57,7 @@ namespace Project4
             set { bestellingen = value; }
         }
 
-
+        //__________PizzaGroottes______________
         private ObservableCollection<PizzaGrootte> pizzaGroottes= new();
 
         public ObservableCollection<PizzaGrootte> PizzaGroottes
@@ -70,9 +73,46 @@ namespace Project4
             set { selectedPizzaGrootte = value; OnPropertyChanged(); ShowUpdatedPrice(); }
         }
 
+
+
+        //____________Bestellingen_______________
+        private Bestelling bestelling = new();
+
+        public Bestelling Bestelling
+        {
+            get { return bestelling; }
+            set { bestelling = value; }
+        }
+
+        private Bestelling selectedbestellingen = new();
+
+        public Bestelling SelectedBestellingen
+        {
+            get { return selectedbestellingen; }
+            set { selectedbestellingen = value; }
+        }
+
+        //____________BestelRegel________________
+        private ObservableCollection<Bestelregel> bestelregels = new();
+
+        public ObservableCollection<Bestelregel> Bestelregels
+        {
+            get { return bestelregels; }
+            set { bestelregels = value; }
+        }
+
+        private Bestelregel? selectedBestelregel; //iets voor cansel
+        public Bestelregel? SelectedBestelregel
+        {
+            get { return selectedBestelregel; }
+            set { selectedBestelregel = value; OnPropertyChanged(); ShowUpdatedPrice(); }
+        }
+
+
+
         private void ShowUpdatedPrice()
         {
-            MessageBox.Show((SelectedPizza.Price * SelectedPizzaGrootte.Factor).ToString());
+            MessageBox.Show((SelectedbPizzas.Price + SelectedPizzaGrootte.Factor).ToString());
         }
 
 
@@ -80,10 +120,46 @@ namespace Project4
         public BestellenPage()
         {
             InitializeComponent();
-            PopulateMenus();
+            PopulatePizzas();
             PopulatePizzaGroottes();
+            PopulateBestelling();
             DataContext = this;
-    }
+        }
+
+        private void PopulateBestelling()
+        {
+            string dbResult = db.GetBestellingen(selectedbestellingen, out bestelling);
+            if (dbResult != PizzaDB.OK)
+            {
+                MessageBox.Show(dbResult + serviceDeskBericht);
+            }
+        }
+
+        private void SaveBestellings()
+        {
+
+            string dbResult = db.CreateBestellings(selectedbestellingen);
+            if (dbResult != PizzaDB.OK)
+            {
+                MessageBox.Show(dbResult + serviceDeskBericht);
+            }
+        }
+
+        private void SaveBestelregels()
+
+        {
+            selectedBestelregel = new Bestelregel();
+            selectedBestelregel.Pizza = selectedPizzas;
+            selectedBestelregel.Aantal = int.Parse(tbAntaal.Text);
+            selectedBestelregel.PizzaGrootte= selectedPizzaGrootte;
+            PopulateBestelling();
+            selectedBestelregel.BestellingId = bestelling.BestellinglId;
+            string dbResult = db.CreateBestelRegels(selectedBestelregel);
+            if (dbResult != PizzaDB.OK)
+            {
+                MessageBox.Show(dbResult + serviceDeskBericht);
+            }
+        }
 
         private void PopulatePizzaGroottes()
         {
@@ -94,7 +170,7 @@ namespace Project4
             }
         }
 
-        private void PopulateMenus()
+        private void PopulatePizzas()
         {
             string dbResult = db.GetPizza(Pizzas);
             if (dbResult != PizzaDB.OK)
@@ -122,10 +198,15 @@ namespace Project4
 
         private void AddPizza_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedPizza != null)
-            {
-                Bestellingen.Add(SelectedPizza);
+            SaveBestellings();
+            SaveBestelregels();
+            // caculate price * aantal and + groote
+            // save pizzas with price in list
+            // show list in listbox
 
+            if (SelectedbPizzas != null)
+            {
+                Bestellingen.Add(SelectedbPizzas);
             }
         }
 
@@ -133,10 +214,8 @@ namespace Project4
         {
             Button btn = sender as Button;
             Pizzas teVerwijderenMenu  = btn.DataContext as Pizzas;
-            PizzaGrootte teVerwijderenMenu2 = btn.DataContext as PizzaGrootte;
             Bestellingen.Remove(teVerwijderenMenu);
             Pizzas.Add(teVerwijderenMenu);
-            PizzaGroottes.Add(teVerwijderenMenu2);
 
 
         }

@@ -31,7 +31,7 @@
                 <TextBlock Background="#7B350A" Foreground="White" Width="300" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,230"></TextBlock>
                 <TextBlock Foreground="White" Width="80" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,230">Bestellen</TextBlock>
 
-                <ListView Margin="10,0,0,40" ItemsSource="{Binding BestelRegesl}" SelectedItem="{Binding SelectedBestelRegels}" Width="200" HorizontalAlignment="Left" Height="200" Grid.Row="2">
+                <ListView Margin="10,0,0,40" ItemsSource="{Binding Pizzas}" SelectedItem="{Binding SelectedbPizzas}" Width="200" HorizontalAlignment="Left" Height="200" Grid.Row="2">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>

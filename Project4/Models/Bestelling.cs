@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Project4.Models
 {
-    class Bestelling
+    public class Bestelling
     {
+        public int BestellinglId { get; set; }
         public DateTime Besteldatum { get; set; }
-        public string Klantnaam { get; set; }
+        public bool Status { get; set; }
     }
 }

@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Project4.Models
 {
-    class Bestelregel
+    public class Bestelregel
     {
-        public int PizzaId { get; set; }
+        public int BestelregelId { get; set; }
+        public int PizzaID { get; set; }
         public Pizzas Pizza { get; set; }
 
         public int BestellingId { get; set; }
-        public Bestelling Bestelling { get; set; }
-
+        /*        public Bestelling Bestelling { get; set; }
+        */
 
         public int PizzaGrootteId { get; set; }
         public PizzaGrootte PizzaGrootte { get; set; }
