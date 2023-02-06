@@ -22,4 +22,6 @@ namespace Project4.Models
         public decimal Regelprijs { get { return Aantal * (Pizza.Price + PizzaGrootte.Factor);  } }
 
     }
+
+
 }

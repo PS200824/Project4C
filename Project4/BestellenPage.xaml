@@ -54,7 +54,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                
+
                 <StackPanel Orientation="Horizontal" Margin="0,10,40,0" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right">
                     <TextBlock x:Name="btAntaalPizza" Background="White" Foreground="#7B350A" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" LineHeight="Auto" Padding="5,10,5,10" TextAlignment="Center" TextWrapping="Wrap" Typography.NumeralStyle="OldStyle" Typography.SlashedZero="True">Aantal:</TextBlock>
                     <TextBox x:Name="tbAntaal" Margin="20,0,0,0" Width="30" Height="30"></TextBox>
@@ -62,8 +62,8 @@
 
                 <Button x:Name="AddPizza" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Click="AddPizza_Click" Margin="0,120,40,0" Grid.Column="0" Grid.Row="2" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right">Add Pizza</Button>
 
-                <ComboBox x:Name="cmPizzaGroot" Grid.Row="2" ItemsSource="{Binding PizzaGroottes}" SelectedItem="{Binding SelectedPizzaGrootte}"
-                          Background="#7B350A" Width="100" Margin="220,2,20,63" Height="30">
+                <ComboBox Grid.Row="2" ItemsSource="{Binding PizzaGroottes}" SelectedItem="{Binding SelectedPizzaGrootte}"
+                          Background="DeepPink" Width="90" Margin="220,112,20,63" Height="30">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Width="150">
@@ -78,7 +78,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestelregel}">
+                    <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestelregel}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -122,8 +122,14 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <Button x:Name="btnBestellen" Click="btnBestellen_Click"  Margin="0,0,50,0" Grid.Column="1" Grid.Row="2" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right">Bestellen</Button>
-                <Button x:Name="btnBestellenStatus" Click="btnBestellenStatus_Click"  Margin="0,0,170,0" Grid.Column="1" Grid.Row="2" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right">Bestellen Status</Button>
+                <TextBox Background="#7B350A" Height="30" Foreground="White" FontFamily="Century Gothic" FontSize="10" 
+                         FontStretch="UltraExpanded" FontWeight="Light"  Margin="18,195,255,56" Grid.Row="2" Grid.RowSpan="2" 
+                         Grid.Column="1" TextChanged="TextBox_TextChanged" >Totaal prijs = 
+                </TextBox>
+
+                <Button x:Name="btnBestellen" Click="btnBestellen_Click"  
+                        Margin="0,0,40,56" Grid.Column="1" Grid.Row="2" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.RowSpan="2">Bestellen</Button>
+                <Button x:Name="btnBestellenStatus" Click="btnBestellenStatus_Click"  Margin="0,0,150,56" Grid.Column="1" Grid.Row="2" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.RowSpan="2">Bestellen Status</Button>
 
                 <Button x:Name="Home" Click="Home_Click" Margin="180,0,0,0" HorizontalAlignment="Left" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="18" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="110" Height="30" Grid.ColumnSpan="2" Grid.Row="3">Home</Button>
                 <Button Name="PizzaMenu" Click="PizzaMenu_Click" Margin="0,0,0,0" VerticalAlignment="Center" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="18" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="130" Height="30" Grid.ColumnSpan="2" Grid.Row="3">Pizza Menu</Button>
