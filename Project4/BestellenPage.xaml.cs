@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -70,7 +71,7 @@ namespace Project4
         public PizzaGrootte? SelectedPizzaGrootte
         {
             get { return selectedPizzaGrootte; }
-            set { selectedPizzaGrootte = value; OnPropertyChanged(); ShowUpdatedPrice(); }
+            set { selectedPizzaGrootte = value; OnPropertyChanged(); }
         }
 
 
@@ -93,26 +94,25 @@ namespace Project4
         }
 
         //____________BestelRegel________________
-        private ObservableCollection<Bestelregel> bestelregels = new();
+        private ObservableCollection<Bestelregel> bestelregel = new();
 
-        public ObservableCollection<Bestelregel> Bestelregels
+        public ObservableCollection<Bestelregel> Bestelregel
         {
-            get { return bestelregels; }
-            set { bestelregels = value; }
+            get { return bestelregel; }
+            set { bestelregel = value; }
         }
 
         private Bestelregel? selectedBestelregel; //iets voor cansel
-        public Bestelregel? SelectedBestelregel
-        {
+        public Bestelregel? SelectedBestelregel { 
             get { return selectedBestelregel; }
-            set { selectedBestelregel = value; OnPropertyChanged(); ShowUpdatedPrice(); }
+            set { selectedBestelregel = value; OnPropertyChanged(); }
         }
 
 
 
-        private void ShowUpdatedPrice()
+        private decimal bestelRegelPrice()
         {
-            MessageBox.Show((SelectedbPizzas.Price + SelectedPizzaGrootte.Factor).ToString());
+            return (SelectedbPizzas.Price + selectedPizzaGrootte.Factor);
         }
 
 
@@ -122,24 +122,34 @@ namespace Project4
             InitializeComponent();
             PopulatePizzas();
             PopulatePizzaGroottes();
-            PopulateBestelling();
+            //PopulateBestellingen();
+            //
             DataContext = this;
         }
 
-        private void PopulateBestelling()
+        private void PopulateBestelregel()
         {
-            string dbResult = db.GetBestellingen(selectedbestellingen, out bestelling);
+            string dbResult = db.GetBestelregels(bestelregel, bestelling);
             if (dbResult != PizzaDB.OK)
             {
                 MessageBox.Show(dbResult + serviceDeskBericht);
             }
         }
 
+        private void PopulateBestellingen()
+        {
+            string dbResult = db.GetBestellingen
+            (selectedbestellingen, out bestelling);
+            if (dbResult != PizzaDB.OK)
+            {
+               MessageBox.Show(dbResult + serviceDeskBericht);
+            }
+        }
+
         private void SaveBestellings()
         {
-
-            string dbResult = db.CreateBestellings(selectedbestellingen);
-            if (dbResult != PizzaDB.OK)
+            string dbResult = db.CreateBestellings(bestelling);  
+                if (dbResult != PizzaDB.OK)
             {
                 MessageBox.Show(dbResult + serviceDeskBericht);
             }
@@ -149,16 +159,17 @@ namespace Project4
 
         {
             selectedBestelregel = new Bestelregel();
-            selectedBestelregel.Pizza = selectedPizzas;
+            selectedBestelregel.Pizza = SelectedbPizzas;
             selectedBestelregel.Aantal = int.Parse(tbAntaal.Text);
             selectedBestelregel.PizzaGrootte= selectedPizzaGrootte;
-            PopulateBestelling();
+            PopulateBestellingen();               
             selectedBestelregel.BestellingId = bestelling.BestellinglId;
             string dbResult = db.CreateBestelRegels(selectedBestelregel);
             if (dbResult != PizzaDB.OK)
             {
                 MessageBox.Show(dbResult + serviceDeskBericht);
             }
+            //selectedBestelregel.Regelprijs = bestelRegelPrice();
         }
 
         private void PopulatePizzaGroottes()
@@ -198,7 +209,7 @@ namespace Project4
 
         private void AddPizza_Click(object sender, RoutedEventArgs e)
         {
-            SaveBestellings();
+            if(bestelling.BestellinglId == 0) SaveBestellings();
             SaveBestelregels();
             // caculate price * aantal and + groote
             // save pizzas with price in list
@@ -206,7 +217,8 @@ namespace Project4
 
             if (SelectedbPizzas != null)
             {
-                Bestellingen.Add(SelectedbPizzas);
+                bestelregel.Clear();
+                PopulateBestelregel();
             }
         }
 
@@ -215,7 +227,6 @@ namespace Project4
             Button btn = sender as Button;
             Pizzas teVerwijderenMenu  = btn.DataContext as Pizzas;
             Bestellingen.Remove(teVerwijderenMenu);
-            Pizzas.Add(teVerwijderenMenu);
 
 
         }
