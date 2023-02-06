@@ -304,7 +304,7 @@ namespace Project4.Models
             return methodResult;
         }
 
-
+        //Cansel
         internal string GetPizzaGroottes(ICollection<PizzaGrootte> pizzaGroottes)
         {
             if (pizzaGroottes == null)

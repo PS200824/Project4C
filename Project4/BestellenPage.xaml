@@ -29,7 +29,7 @@
                 <Image Source="C:\Users\bushr\Documents\school\Leerjaar 2\Project 4\Project4\Project4\img\logo.png" Height="30" Margin="0,0,320,0" Width="30"></Image>
                 <TextBlock Background="#7B350A" Margin="70,0,0,0" HorizontalAlignment="Left" Foreground="White" Width="110" Height="30" Grid.ColumnSpan="2" FontSize="20" FontFamily="Calibri">Stonks-pizza</TextBlock>
                 <TextBlock Background="#7B350A" Foreground="White" Width="300" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,230"></TextBlock>
-                <TextBlock Foreground="White" Width="80" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,230">Bestellen</TextBlock>
+                <TextBlock Foreground="White" Width="80" Height="30" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" FontFamily="Century Gothic" FontSize="18" FontStretch="UltraExpanded" FontWeight="UltraBold" VerticalAlignment="Bottom" Margin="0,0,0,230">Bestellen</TextBlock>
 
                 <ListView Margin="10,0,0,40" ItemsSource="{Binding Pizza}" SelectedItem="{Binding SelectePizza}" Width="200" HorizontalAlignment="Left" Height="200" Grid.Row="2">
                     <ListView.ItemTemplate>
@@ -61,9 +61,9 @@
                 </StackPanel>
 
                 <Button x:Name="AddPizza" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Click="AddPizza_Click" Margin="0,120,40,0" Grid.Column="0" Grid.Row="2" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right">Add Pizza</Button>
-
+                <TextBlock Margin="0,0,65,80" Width="80" Height="50" HorizontalAlignment="Right" Grid.Row="2" Background="White" Foreground="#7B350A" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" LineHeight="Auto" Padding="5,10,5,10" TextAlignment="Center" TextWrapping="Wrap" Typography.NumeralStyle="OldStyle" Typography.SlashedZero="True">Pizza Groot:</TextBlock>
                 <ComboBox x:Name="cmPizzaGroot" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding PizzaGroottes}" SelectedItem="{Binding SelectedPizzaGrootte}"
-                          Background="DeepPink" Width="90" Margin="0,0,45,70" HorizontalAlignment="Right" Height="30">
+                          Background="#7B350A" Width="90" Margin="0,0,50,35" HorizontalAlignment="Right" Height="30">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Width="150">
@@ -89,8 +89,6 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" Margin="0, 2, 0, 10">
@@ -100,20 +98,13 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Grid.Column="0" TextWrapping="Wrap" Grid.Row="0" Text="{Binding Pizza.Name}" Foreground="#7B350A"/>
-                                        <TextBlock Grid.Column="1"> </TextBlock>
-                                        <TextBlock Grid.Column="2" TextWrapping="Wrap" Grid.Row="1" Text="{Binding Aantal}" Foreground="#7B350A"/>
-                                        <TextBlock Grid.Column="3"> </TextBlock>
-                                        <TextBlock Grid.Column="4" TextWrapping="Wrap" Grid.Row="2" Text="{Binding PizzaGrootte.Description}" Foreground="#7B350A"/>
-                                        <TextBlock Grid.Column="5"> </TextBlock>
-                                        <TextBlock Grid.Column="6" TextWrapping="Wrap" Grid.Row="3" Text="{Binding Regelprijs, StringFormat='€ 0.00'}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0" />
-                                        <TextBlock Grid.Column="7"> </TextBlock>
-                                        <Button Name="btnDelete" Background="#7B350A" Foreground="White" Grid.Column="8" Content="Delete" Click="BtnDelete_Click"/>
+                                        <TextBlock Grid.Column="1" TextWrapping="Wrap" Grid.Row="1" Text="{Binding Aantal}" Foreground="#7B350A"/>
+                                        <TextBlock Grid.Column="2" TextWrapping="Wrap" Grid.Row="2" Text="{Binding PizzaGrootte.Description}" Foreground="#7B350A"/>
+                                        <TextBlock Grid.Column="3" TextWrapping="Wrap" Grid.Row="3" Text="{Binding Regelprijs, StringFormat='€ 0.00'}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0" />
+                                        <Button Name="btnDelete" Background="#7B350A" Foreground="White" Grid.Column="4" Content="Delete" Click="BtnDelete_Click"/>
                                     </Grid>
                                     <!--<TextBlock Grid.Row="1" Text="{Binding Description}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0" />-->
                                 </Grid>

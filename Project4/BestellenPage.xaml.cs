@@ -131,8 +131,6 @@ namespace Project4
             InitializeComponent();
             PopulatePizzas();
             PopulatePizzaGroottes();
-            //PopulateBestellingen();
-            //
             DataContext = this;
         }
 
@@ -188,8 +186,9 @@ namespace Project4
             selectedBestelregel = new Bestelregel();
             selectedBestelregel.Pizza = SelectePizza;
             selectedBestelregel.Aantal = int.Parse(tbAntaal.Text);
+            //Cansel ________________ combobox die wordt geselecteerd (pizzas) wordt in de overzicht getoond ___________________
             selectedBestelregel.PizzaGrootte= selectedPizzaGrootte;
-            PopulateBestellingen();               
+            PopulateBestellingen();
             selectedBestelregel.BestellingId = bestelling.BestellinglId;
             string dbResult = db.CreateBestelRegels(selectedBestelregel);
             if (dbResult != PizzaDB.OK)
