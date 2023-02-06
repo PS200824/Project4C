@@ -241,26 +241,33 @@ namespace Project4
 
         double total = 0;
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+
+
 
 
         //TOTAAL PRIJS BEREKENEN
 
         //private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         //{
-            //if (comboBox1.SelectedItem.ToString() == "Item 1")
-            //{
-            //    total += 10;
-            //}
-            //else if (comboBox1.SelectedItem.ToString() == "Item 2")
-            //{
-             //   total += 20;
-            //}
-            //else if (comboBox1.SelectedItem.ToString() == "Item 3")
-            //{
-              //  total += 30;
-            //}
+        //if (comboBox1.SelectedItem.ToString() == "Item 1")
+        //{
+        //    total += 10;
+        //}
+        //else if (comboBox1.SelectedItem.ToString() == "Item 2")
+        //{
+        //   total += 20;
+        //}
+        //else if (comboBox1.SelectedItem.ToString() == "Item 3")
+        //{
+        //  total += 30;
+        //}
 
-            //labelTotal.Text = "Total: $" + total.ToString();
+        //labelTotal.Text = "Total: $" + total.ToString();
         //}
 
 
