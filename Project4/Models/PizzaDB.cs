@@ -219,6 +219,11 @@ namespace Project4.Models
                         bestelregels.Add(bestelregel);
                     }
                     methodResult = "Ok";
+                    bestelling.Bestelregels = new List<Bestelregel>();
+                    foreach (Bestelregel bestelregel in bestelregels)
+                    {
+                        bestelling.Bestelregels.Add(bestelregel);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -304,8 +309,8 @@ namespace Project4.Models
             return methodResult;
         }
 
-
-        internal string GetPizzaGroottes(ICollection<PizzaGrootte> pizzaGroottes)
+        //-------------------Cansel----------------------------------------
+        internal string GetPizzaGroottes(ICollection<PizzaGrootte> pizzaGroottes) //Cansel  
         {
             if (pizzaGroottes == null)
             {
@@ -319,17 +324,17 @@ namespace Project4.Models
                 {
                     conn.Open();
                     MySqlCommand sql = conn.CreateCommand();
-                    sql.CommandText = @" SELECT pizzaGrootteId, description, factor FROM pizzagrootte ";
+                    sql.CommandText = @" SELECT pizzaGrootteId, description, factor FROM pizzagrootte "; //select query to show in combobox 
                     MySqlDataReader reader = sql.ExecuteReader();
                     while (reader.Read())
                     {
-                        PizzaGrootte pizzaGrootes = new()
+                        PizzaGrootte pizzaGrootes = new() //this query 
                         {
                             Id = (int)reader["pizzaGrootteId"],
                             Factor = (decimal)reader["factor"],
                             Description = reader["description"] == DBNull.Value ? null : (string)reader["description"],
                         };
-                        pizzaGroottes.Add(pizzaGrootes);
+                        pizzaGroottes.Add(pizzaGrootes); //alles toevoegen
                     }
                     methodResult = "Ok";
                 }
@@ -337,7 +342,7 @@ namespace Project4.Models
                 {
                     Console.Error.WriteLine(nameof(GetPizzaGroottes));
                     Console.Error.WriteLine(e.Message);
-                    methodResult = e.Message;
+                    methodResult = e.Message; //als de query niet wordt uitgevoerd krijg je dus hier die error
                 }
             }
             return methodResult;

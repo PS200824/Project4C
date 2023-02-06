@@ -60,7 +60,8 @@
                     <TextBox x:Name="tbAntaal" Margin="20,0,0,0" Width="30" Height="30"></TextBox>
                 </StackPanel>
 
-                <Button x:Name="AddPizza" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Click="AddPizza_Click" Margin="0,120,40,0" Grid.Column="0" Grid.Row="2" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right">Add Pizza</Button>
+                <Button x:Name="AddPizza" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" 
+                        FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Click="AddPizza_Click" Margin="0,120,40,0" Grid.Column="0" Grid.Row="2" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right">Add Pizza</Button>
 
                 <ComboBox x:Name="cmPizzaGroot" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding PizzaGroottes}" SelectedItem="{Binding SelectedPizzaGrootte}"
                           Background="DeepPink" Width="90" Margin="0,0,45,70" HorizontalAlignment="Right" Height="30">
@@ -122,9 +123,9 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <TextBox Background="#7B350A" Height="30" Foreground="White" FontFamily="Century Gothic" FontSize="10" 
+                <TextBox x:Name="totalprijs" Background="#7B350A" Height="30" Foreground="White" FontFamily="Century Gothic" FontSize="10" 
                          FontStretch="UltraExpanded" FontWeight="Light"  Margin="18,195,255,56" Grid.Row="2" Grid.RowSpan="2" 
-                         Grid.Column="1" TextChanged="TextBox_TextChanged" >Totaal prijs = 
+                         Grid.Column="1" TextChanged="TextBox_TextChanged" >Totaal prijs =
                 </TextBox>
 
                 <Button x:Name="btnBestellen" Click="btnBestellen_Click"  

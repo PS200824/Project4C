@@ -86,7 +86,7 @@ namespace Project4
 
 
         //____________Bestellingen_______________
-        private Bestelling bestelling = new();
+        private Bestelling bestelling = new Bestelling();
 
         public Bestelling Bestelling
         {
@@ -156,7 +156,7 @@ namespace Project4
         }
 
         //add bestelling
-        private void SaveBestellings()
+        private void SaveBestellings(Bestelling bestelling)
         {
             string dbResult = db.CreateBestellings(bestelling);  
                 if (dbResult != PizzaDB.OK)
@@ -256,7 +256,7 @@ namespace Project4
                 return;
             }
 
-            if (bestelling.BestellinglId == 0) SaveBestellings();
+            if (bestelling.BestellinglId == 0) SaveBestellings(bestelling);
                 SaveBestelregels();
 
             if (SelectePizza != null)
@@ -264,6 +264,8 @@ namespace Project4
                 bestelregel.Clear();
                 PopulateBestelregel();
             }
+
+            totalprijs.Text = bestelling.Bestellingprijs().ToString("€ 0.00"); //bestelregel totaal prijs komt hier (CANSEL)
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -274,7 +276,7 @@ namespace Project4
             MessageBox.Show("Deleted");
             bestelregel.Clear();
             PopulateBestelregel();
-
+            totalprijs.Text = bestelling.Bestellingprijs().ToString("€ 0.00"); //totaalprijs textbox zodat hier niet nog steeds oude prijs blijft (CANSEL)
 
         }
 
@@ -295,7 +297,6 @@ namespace Project4
             {
                 MessageBox.Show("niks geselecteerd");
             }
-
 
         }
 
