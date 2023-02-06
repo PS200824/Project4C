@@ -21,7 +21,7 @@ namespace Project4.Models
             set { pizzaId = value; }
         }
         public Ingredient Ingredient { get; set; }
-        public Pizzas Pizzas { get; set; }
+        public Pizza Pizzas { get; set; }
 
     }
 }

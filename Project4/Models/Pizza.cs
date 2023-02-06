@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project4.Models
 {
-    public class Pizzas
+    public class Pizza
     {
         private int pizzaID;
         public int PizzaID

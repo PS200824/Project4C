@@ -9,7 +9,7 @@ namespace Project4.Models
     public class Bestelregel
     {
         public int BestelregelId { get; set; }
-        public Pizzas Pizza { get; set; }
+        public Pizza Pizza { get; set; }
 
         public int BestellingId { get; set; }
         /*        public Bestelling Bestelling { get; set; }

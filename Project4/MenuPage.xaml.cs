@@ -34,17 +34,17 @@ namespace Project4
         private readonly string serviceDeskBericht = "\n\nNeem contact op met de service desk";
         #endregion
         #region Properties
-        private ObservableCollection<Pizzas> pizzas = new ObservableCollection<Pizzas>();
-        public ObservableCollection<Pizzas> Pizzas
+        private ObservableCollection<Pizza> pizza = new ObservableCollection<Pizza>();
+        public ObservableCollection<Pizza> Pizza
         {
-            get { return pizzas; }
-            set { pizzas = value; OnPropertyChanged(); }
+            get { return pizza; }
+            set { pizza = value; OnPropertyChanged(); }
         }
-        private Pizzas? selectedPizza;
-        public Pizzas? SelectedPizza
+        private Pizza? selectePizza;
+        public Pizza? SelectePizza
         {
-            get { return selectedPizza; }
-            set { selectedPizza = value; OnPropertyChanged(); }
+            get { return selectePizza; }
+            set { selectePizza = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<Ingredient> ingredients = new ObservableCollection<Ingredient>();
@@ -53,8 +53,8 @@ namespace Project4
             get { return ingredients; }
             set { ingredients = value; OnPropertyChanged(); }
         }
-        private Pizzas? selectedIngredient;
-        public Pizzas? SelectedIngredient
+        private Pizza? selectedIngredient;
+        public Pizza? SelectedIngredient
         {
             get { return selectedIngredient; }
             set { selectedIngredient = value; OnPropertyChanged(); }
@@ -70,7 +70,7 @@ namespace Project4
 
         private void PopulateMenus()
         {
-            string dbResult = db.GetPizza(Pizzas);
+            string dbResult = db.GetPizza(Pizza);
             if (dbResult != PizzaDB.OK)
             {
                 MessageBox.Show(dbResult + serviceDeskBericht);

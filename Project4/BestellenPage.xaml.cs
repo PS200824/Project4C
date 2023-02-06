@@ -1,8 +1,10 @@
-﻿using Project4.Models;
+﻿using Google.Protobuf.WellKnownTypes;
+using Project4.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -37,22 +39,29 @@ namespace Project4
         #region Properties
 
         //__________Pizza__________
-        private ObservableCollection<Pizzas> pizzas = new ();
-        public ObservableCollection<Pizzas> Pizzas
+        private Bestelregel bestelregels = new ();
+        private Bestelregel Bestelregels
         {
-            get { return pizzas; }
-            set { pizzas = value; OnPropertyChanged(); }
-        }
-        private Pizzas? selectedPizzas;
-        public Pizzas? SelectedbPizzas
-        {
-            get { return selectedPizzas; }
-            set { selectedPizzas = value; OnPropertyChanged(); }
+            get { return bestelregels; }
+            set { bestelregels = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<Pizzas> bestellingen = new();
+        private ObservableCollection<Pizza> pizza = new ();
+        public ObservableCollection<Pizza> Pizza
+        {
+            get { return pizza; }
+            set { pizza = value; OnPropertyChanged(); }
+        }
+        private Pizza? selectePizza;
+        public Pizza? SelectePizza
+        {
+            get { return selectePizza; }
+            set { selectePizza = value; OnPropertyChanged(); }
+        }
 
-        public ObservableCollection<Pizzas> Bestellingen
+        private ObservableCollection<Pizza> bestellingen = new();
+
+        public ObservableCollection<Pizza> Bestellingen
         {
             get { return bestellingen; }
             set { bestellingen = value; }
@@ -112,7 +121,7 @@ namespace Project4
 
         private decimal bestelRegelPrice()
         {
-            return (SelectedbPizzas.Price + selectedPizzaGrootte.Factor);
+            return (SelectePizza.Price + selectedPizzaGrootte.Factor);
         }
 
 
@@ -146,6 +155,7 @@ namespace Project4
             }
         }
 
+        //add bestelling
         private void SaveBestellings()
         {
             string dbResult = db.CreateBestellings(bestelling);  
@@ -155,11 +165,28 @@ namespace Project4
             }
         }
 
+        private void UpdateStatus(int bestellingId)
+        {
+            string dbResult = db.UpdateStatus(bestellingId, bestelling);
+            if (dbResult != PizzaDB.OK)
+            {
+                MessageBox.Show(dbResult + serviceDeskBericht);
+            }
+        }
+        public void DeleteBestelregel(int bestelregelId)
+        {
+            string dbResult = db.DeleteBestelregel(bestelregelId);
+            if (dbResult != PizzaDB.OK)
+            {
+                MessageBox.Show(dbResult + serviceDeskBericht);
+            }
+        }
+
         private void SaveBestelregels()
 
         {
             selectedBestelregel = new Bestelregel();
-            selectedBestelregel.Pizza = SelectedbPizzas;
+            selectedBestelregel.Pizza = SelectePizza;
             selectedBestelregel.Aantal = int.Parse(tbAntaal.Text);
             selectedBestelregel.PizzaGrootte= selectedPizzaGrootte;
             PopulateBestellingen();               
@@ -183,13 +210,14 @@ namespace Project4
 
         private void PopulatePizzas()
         {
-            string dbResult = db.GetPizza(Pizzas);
+            string dbResult = db.GetPizza(Pizza);
             if (dbResult != PizzaDB.OK)
             {
                 MessageBox.Show(dbResult + serviceDeskBericht);
             }
         }
 
+        //Windows Button
         private void PizzaMenu_Click(object sender, RoutedEventArgs e)
         {
             new MenuPage().Show();
@@ -198,6 +226,7 @@ namespace Project4
 
         private void Annuleren_Click(object sender, RoutedEventArgs e)
         {
+            //If the button where clicked then showed messageBox 
             this.Close();
         }
 
@@ -207,15 +236,30 @@ namespace Project4
             this.Close();
         }
 
+
         private void AddPizza_Click(object sender, RoutedEventArgs e)
         {
-            if(bestelling.BestellinglId == 0) SaveBestellings();
-            SaveBestelregels();
-            // caculate price * aantal and + groote
-            // save pizzas with price in list
-            // show list in listbox
+            
+            if (tbAntaal.Text == "" )
+            {
+                MessageBox.Show("Voeg een aantal toe");
+                return;
+            }
+            if (cmPizzaGroot.SelectedItem == null )
+            {
+                MessageBox.Show("Voeg een de Pizza groot toe");
+                return;
+            }
+            if (cmPizzaGroot.Items[1] == string.Empty == null)
+            {
+                MessageBox.Show("select een Pizza");
+                return;
+            }
 
-            if (SelectedbPizzas != null)
+            if (bestelling.BestellinglId == 0) SaveBestellings();
+                SaveBestelregels();
+
+            if (SelectePizza != null)
             {
                 bestelregel.Clear();
                 PopulateBestelregel();
@@ -225,29 +269,47 @@ namespace Project4
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            Pizzas teVerwijderenMenu  = btn.DataContext as Pizzas;
-            Bestellingen.Remove(teVerwijderenMenu);
+            Bestelregel teVerwijderenBestelregel  = btn.DataContext as Bestelregel;
+            DeleteBestelregel(teVerwijderenBestelregel.BestelregelId);
+            MessageBox.Show("Deleted");
+            bestelregel.Clear();
+            PopulateBestelregel();
 
 
         }
 
         private void btnBestellen_Click(object sender, RoutedEventArgs e)
         {
-            if (BestelBox.Items.Count == 0)
+            bestelling.Status = true;
+            bestelling.Besteldatum = DateTime.Now;
+            UpdateStatus(bestelling.BestellinglId);
+            if (bestelling.Status == true)
             {
-                MessageBox.Show("niks geselecteerd");
+                MessageBox.Show("Bestellen van pizza is gelukt");
+                bestelling.Besteldatum = DateTime.Now;
+                AddPizza.IsEnabled = false;
+                BestelBox.IsEnabled = false;
+                
             }
             else
             {
-                MessageBox.Show("Bestellen van pizza is gelukt");
+                MessageBox.Show("niks geselecteerd");
             }
+
 
         }
 
         private void btnBestellenStatus_Click(object sender, RoutedEventArgs e)
         {
-            new BestellenStatusPage().Show();
-            this.Close();
+            if (bestelling.Status == true)
+            {
+                MessageBox.Show("Is besteld op : " + bestelling.Besteldatum);
+            }
+            else
+            {
+                MessageBox.Show("Is nog niet besteld, laatst gewijzigd op : " + bestelling.Besteldatum);
+
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Project4.Models
 
         private string connString = ConfigurationManager.ConnectionStrings["PizzaConn"].ConnectionString;
 
-        public string GetPizza(ICollection<Pizzas> pizzas)
+        public string GetPizza(ICollection<Pizza> pizzas)
         {
 
             if (pizzas == null)
@@ -34,7 +34,7 @@ namespace Project4.Models
                     MySqlDataReader reader = sql.ExecuteReader();
                     while (reader.Read())
                     {
-                        Pizzas pizza = new ()
+                        Pizza pizza = new ()
                         {
                             PizzaID = (int)reader["pizzaID"],
                             Name = (string)reader["PizzaName"],
@@ -50,6 +50,42 @@ namespace Project4.Models
                 catch (Exception e)
                 {
                     Console.Error.WriteLine(nameof(GetPizza));
+                    Console.Error.WriteLine(e.Message);
+                    methodResult = e.Message;
+                }
+            }
+            return methodResult;
+        }
+
+        public string UpdateStatus(int bestellingId, Bestelling bestelling)
+        {
+            if (bestelling == null || bestelling.Status == null || bestelling.Besteldatum == null)
+            {
+                throw new ArgumentException("Ongeldig argument bij gebruik van UpdateIngredient");
+            }
+            string methodResult = UNKNOWN;
+            using (MySqlConnection conn = new(connString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand sql = conn.CreateCommand();
+                    sql.CommandText = @" UPDATE bestelling SET bestelDatum=@bestelDatum, status=@status WHERE bestellingId = @bestellingId; ";
+                    sql.Parameters.AddWithValue("@bestellingId", bestellingId);
+                    sql.Parameters.AddWithValue("@status", bestelling.Status);
+                    sql.Parameters.AddWithValue("@bestelDatum", bestelling.Besteldatum);
+                    if (sql.ExecuteNonQuery() == 1)
+                    {
+                        methodResult = OK;
+                    }
+                    else
+                    {
+                        methodResult = $"Ingrediënt {bestelling.Status} kon niet gewijzigd worden.";
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(nameof(UpdateStatus));
                     Console.Error.WriteLine(e.Message);
                     methodResult = e.Message;
                 }
@@ -235,6 +271,39 @@ namespace Project4.Models
             }
             return methodResult;
         }
+
+        public string DeleteBestelregel(int bestelregelId)
+        {
+            string methodResult = UNKNOWN;
+            using (MySqlConnection conn = new(connString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand sql = conn.CreateCommand();
+                    sql.CommandText = @" DELETE FROM bestelregel
+                                         WHERE bestelregelId = @bestelregelId
+                                         ";
+                    sql.Parameters.AddWithValue("@bestelregelId", bestelregelId);
+                    if (sql.ExecuteNonQuery() == 1)
+                    {
+                        methodResult = OK;
+                    }
+                    else
+                    {
+                        methodResult = $"Ingredient met id {bestelregelId} kon niet verwijderd worden.";
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(nameof(DeleteBestelregel));
+                    Console.Error.WriteLine(e.Message);
+                    methodResult = e.Message;
+                }
+            }
+            return methodResult;
+        }
+
 
         internal string GetPizzaGroottes(ICollection<PizzaGrootte> pizzaGroottes)
         {
