@@ -78,7 +78,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                    <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestelregel}">
+                <ListBox x:Name="BestelBox" Width="300" Height="200" Margin="0,0,0,40" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Bestelregel}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -100,10 +100,24 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Grid.Column="0" TextWrapping="Wrap" Grid.Row="0" Text="{Binding Pizza.Name}" Foreground="#7B350A"/>
-                                        <TextBlock Grid.Column="1" TextWrapping="Wrap" Grid.Row="1" Text="{Binding Aantal}" Foreground="#7B350A"/>
-                                        <TextBlock Grid.Column="2" TextWrapping="Wrap" Grid.Row="2" Text="{Binding PizzaGrootte.Description}" Foreground="#7B350A"/>
-                                        <TextBlock Grid.Column="3" TextWrapping="Wrap" Grid.Row="3" Text="{Binding Regelprijs, StringFormat='€ 0.00'}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0" />
+                                        <TextBlock Grid.Column="0" TextWrapping="Wrap" Grid.Row="0" Foreground="#7B350A">
+                                            <Run Text="{Binding Pizza.Name}"/>
+                                            <Run Text=" "/>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="1" TextWrapping="Wrap" Grid.Row="1" Foreground="#7B350A">
+                                            <Run Text="Aantal:"/>
+                                            <Run Text="{Binding Aantal}"/>
+                                            <Run Text=" "/>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="2" TextWrapping="Wrap" Grid.Row="2" Foreground="#7B350A">
+                                            <!--<Run Text="Grootte:"/>-->
+                                            <Run Text="{Binding PizzaGrootte.Description}"/>
+                                            <Run Text=" "/>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="3" TextWrapping="Wrap" Grid.Row="3" Text="{Binding Regelprijs, StringFormat='€ 0.00'}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0">
+                                            <Run Text=" "/>
+                                            <Run Text=" "/>
+                                        </TextBlock>
                                         <Button Name="btnDelete" Background="#7B350A" Foreground="White" Grid.Column="4" Content="Delete" Click="BtnDelete_Click"/>
                                     </Grid>
                                     <!--<TextBlock Grid.Row="1" Text="{Binding Description}" Foreground="#7B350A" HorizontalAlignment="Right" Margin="10,0,0,0" />-->
@@ -113,10 +127,9 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <TextBox x:Name="totalprijs" Background="#7B350A" Height="30" Foreground="White" FontFamily="Century Gothic" FontSize="10" 
-                         FontStretch="UltraExpanded" FontWeight="Light"  Margin="18,195,255,56" Grid.Row="2" Grid.RowSpan="2" 
-                         Grid.Column="1" TextChanged="TextBox_TextChanged" >Totaal prijs =
-                </TextBox>
+                <TextBlock x:Name="totalprijs" Height="30" Foreground="#7B350A" FontFamily="Century Gothic" FontSize="14"
+                         FontStretch="UltraExpanded" FontWeight="Light"  Margin="3,192,252,3" Grid.Row="2" Grid.Column="1" >Totaal prijs =
+                </TextBlock>
 
                 <Button x:Name="btnBestellen" Click="btnBestellen_Click"  
                         Margin="0,0,40,56" Grid.Column="1" Grid.Row="2" Background="#7B350A" Foreground="White" FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontWeight="UltraBold" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.RowSpan="2">Bestellen</Button>

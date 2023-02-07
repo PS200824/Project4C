@@ -181,7 +181,6 @@ namespace Project4
         }
 
         private void SaveBestelregels()
-
         {
             selectedBestelregel = new Bestelregel();
             selectedBestelregel.Pizza = SelectePizza;
@@ -239,7 +238,7 @@ namespace Project4
         private void AddPizza_Click(object sender, RoutedEventArgs e)
         {
             
-            if (tbAntaal.Text == "" )
+            if (tbAntaal.Text == "")
             {
                 MessageBox.Show("Voeg een aantal toe");
                 return;
@@ -311,14 +310,6 @@ namespace Project4
 
             }
         }
-
-        double total = 0;
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
 
 
 
