@@ -12,15 +12,21 @@ namespace Project4.Models
         public int BestellinglId { get; set; }
         public DateTime Besteldatum { get; set; }
         public bool Status { get; set; }
-        //public decimal Bestellingprijs()
-        //{
-            //decimal Resultaat = 0;
-            //for (int i = 0; i < Bestelregels.length; i++)
-            //{
-                //Resultaat += Bestelregels[i].Regelprijs();
-            //}
-            //return Resultaat;
-        //}
+
+
+
+        public decimal Bestellingprijs()
+        {
+            decimal Resultaat = 0;
+            if (Bestelregels != null) {
+                for (int i = 0; i < Bestelregels.Count; i++)
+                {
+                    Resultaat += Bestelregels[i].Regelprijs;
+                }
+            }
+    
+            return Resultaat;
+        }
     }
 
 
